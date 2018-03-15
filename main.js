@@ -10,7 +10,9 @@ let pertama = document.querySelector('.pertama'),
 	ketiga = document.querySelector('.ketiga'),
 	keempat = document.querySelector('.keempat');
 
-
+if ('scrollRestoration' in history) {
+  history.scrollRestoration = 'manual';
+}
 
 let screenHeight = window.innerHeight,
 	initScreen  = 0,
@@ -110,7 +112,7 @@ function makescrollTwo(e){
 }
 
 function makescrollThree(e){
-	one(e, ketigaRem, keempatAdd, keduaAdd, ketigaRem, screenTimes3, screenPlus5);
+	one(e, ketigaRem, keempatAdd, keduaAdd, ketigaRem, screenTimes3, screenHeight);
 }
 
 function makescrollFour(e){
@@ -138,3 +140,30 @@ keempat.addEventListener('wheel', makescrollFour );
 
 //IMPORTANT...!!!! window.innerHeight dont work for IE, consider a fallback...
 
+
+//___________BELOW is the code for experiment, above code is almost done, that scrolling shit is almost done haha__
+
+
+
+let headerOne = document.querySelector('#header-one');
+let imgOne = document.querySelector('.beatles-round img');
+
+pertama.addEventListener('mousemove', function(e){
+	let x = e.clientX;
+	let y = e.clientY;
+	// console.log(x);
+	headerOne.style.top = `${y}px`;
+	headerOne.style.left = `${x}px`;
+	headerOne.style.transform = 'none';
+
+	let imgPosX = screen.width - (e.clientX*2);
+	let imgPosY = screen.height - e.clientY;
+	imgOne.style.top = `${imgPosY}px`;
+	imgOne.style.left = `${imgPosX}px`;
+	imgOne.style.transform = 'none';
+	// console.log(imgPosX);
+})
+
+window.addEventListener('load', function(){
+	headerOne.style.transform = 'rotate(90deg)';
+})
